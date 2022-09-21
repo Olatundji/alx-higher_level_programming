@@ -1,131 +1,49 @@
-nclude <Python.h>
-
-
-
-void print_python_list(PyObject *p);
-
-void print_python_bytes(PyObject *p);
-
-
-
-/**
-
- * print_python_list - Prints basic info about Python lists.
-
-  * @p: A PyObject list object.
-
-   */
-
-   void print_python_list(PyObject *p)
-
-   {
-
-            int size, alloc, i;
-
-                const char *type;
-
-                    PyListObject *list = (PyListObject *)p;
-
-                        PyVarObject *var = (PyVarObject *)p;
-
-
-
-                            size = var->ob_size;
-
-                                alloc = list->allocated;
-
-
-
-                                    printf("[*] Python list info\n");
-
-                                        printf("[*] Size of the Python List = %d\n", size);
-
-                                            printf("[*] Allocated = %d\n", alloc);
-
-
-
-                                                for (i = 0; i < size; i++)
-
-                                                    {
-
-                                                                type = list->ob_item[i]->ob_type->tp_name;
-
-                                                                        printf("Element %d: %s\n", i, type);
-
-                                                                                if (strcmp(type, "bytes") == 0)
-
-                                                                                            print_python_bytes(list->ob_item[i]);
-
-                                                                                                }
-
-                                                    }
-
-
-
-   /**
-
-    * print_python_bytes - Prints basic info about Python byte objects.
-
-     * @p: A PyObject byte object.
-
-      */
-
-      void print_python_bytes(PyObject *p)
-
-      {
-
-                unsigned char i, size;
-
-                    PyBytesObject *bytes = (PyBytesObject *)p;
-
-
-
-                        printf("[.] bytes object info\n");
-
-                            if (strcmp(p->ob_type->tp_name, "bytes") != 0)
-
-                                {
-
-                                            printf("  [ERROR] Invalid Bytes Object\n");
-
-                                                    return;
-
-                                                        }
-
-
-
-                                    printf("  size: %ld\n", ((PyVarObject *)p)->ob_size);
-
-                                        printf("  trying string: %s\n", bytes->ob_sval);
-
-
-
-                                            if (((PyVarObject *)p)->ob_size > 10)
-
-                                                    size = 10;
-
-                                                        else
-
-                                                                size = ((PyVarObject *)p)->ob_size + 1;
-
-
-
-                                                                    printf("  first %d bytes: ", size);
-
-                                                                        for (i = 0; i < size; i++)
-
-                                                                            {
-
-                                                                                        printf("%02hhx", bytes->ob_sval[i]);
-
-                                                                                                if (i == (size - 1))
-
-                                                                                                            printf("\n");
-
-                                                                                                                    else
-
-                                                                                                                                printf(" ");
-
-                                                                                                                                    }
-
-                                                                            }
+#!/usr/bin/python3
+'''Contains a matrix_divided function for a TDD project.
+'''
+
+
+def matrix_divided(matrix, div):
+    '''Divides all elements of a matrix.
+    Args:
+        matrix (list): The matrix whose elements are to be divided.
+        div (int): The number to use as a divisor.
+    Returns:
+        list: A new list consiting of the result of dividing each element
+        in the given matrix by div.
+    '''
+    messages = (
+        'matrix must be a matrix (list of lists) of integers/floats',
+        'Each row of the matrix must have the same size',
+        'div must be a number',
+        'division by zero'
+    )
+    size = [0, 0]
+    res = []
+    if not isinstance(matrix, list):
+        raise TypeError(messages[0])
+    size[0] = len(matrix)
+    if size[0] == 0:
+        raise TypeError(messages[0])
+    for row in matrix:
+        if not isinstance(row, list):
+            raise TypeError(messages[0])
+        elif len(row) == 0:
+            raise TypeError(messages[0])
+        else:
+            if size[1] == 0:
+                size[1] = len(row)
+            elif len(row) != size[1]:
+                raise TypeError(messages[1])
+            for col in row:
+                if not isinstance(col, (int, float)):
+                    raise TypeError(messages[0])
+    if not isinstance(div, (int, float)):
+        raise TypeError(messages[2])
+    elif div == 0:
+        raise ZeroDivisionError(messages[3])
+    else:
+        for row in matrix:
+            res_row = list(map(lambda x: round(x / div, 2), row))
+            res.append(res_row)
+        return res
