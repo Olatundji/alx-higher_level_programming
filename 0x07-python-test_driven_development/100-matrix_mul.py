@@ -1,131 +1,79 @@
-nclude <Python.h>
-
-
-
-void print_python_list(PyObject *p);
-
-void print_python_bytes(PyObject *p);
-
-
-
-/**
-
- * print_python_list - Prints basic info about Python lists.
-
-  * @p: A PyObject list object.
-
-   */
-
-   void print_python_list(PyObject *p)
-
-   {
-
-            int size, alloc, i;
-
-                const char *type;
-
-                    PyListObject *list = (PyListObject *)p;
-
-                        PyVarObject *var = (PyVarObject *)p;
-
-
-
-                            size = var->ob_size;
-
-                                alloc = list->allocated;
-
-
-
-                                    printf("[*] Python list info\n");
-
-                                        printf("[*] Size of the Python List = %d\n", size);
-
-                                            printf("[*] Allocated = %d\n", alloc);
-
-
-
-                                                for (i = 0; i < size; i++)
-
-                                                    {
-
-                                                                type = list->ob_item[i]->ob_type->tp_name;
-
-                                                                        printf("Element %d: %s\n", i, type);
-
-                                                                                if (strcmp(type, "bytes") == 0)
-
-                                                                                            print_python_bytes(list->ob_item[i]);
-
-                                                                                                }
-
-                                                    }
-
-
-
-   /**
-
-    * print_python_bytes - Prints basic info about Python byte objects.
-
-     * @p: A PyObject byte object.
-
-      */
-
-      void print_python_bytes(PyObject *p)
-
-      {
-
-                unsigned char i, size;
-
-                    PyBytesObject *bytes = (PyBytesObject *)p;
-
-
-
-                        printf("[.] bytes object info\n");
-
-                            if (strcmp(p->ob_type->tp_name, "bytes") != 0)
-
-                                {
-
-                                            printf("  [ERROR] Invalid Bytes Object\n");
-
-                                                    return;
-
-                                                        }
-
-
-
-                                    printf("  size: %ld\n", ((PyVarObject *)p)->ob_size);
-
-                                        printf("  trying string: %s\n", bytes->ob_sval);
-
-
-
-                                            if (((PyVarObject *)p)->ob_size > 10)
-
-                                                    size = 10;
-
-                                                        else
-
-                                                                size = ((PyVarObject *)p)->ob_size + 1;
-
-
-
-                                                                    printf("  first %d bytes: ", size);
-
-                                                                        for (i = 0; i < size; i++)
-
-                                                                            {
-
-                                                                                        printf("%02hhx", bytes->ob_sval[i]);
-
-                                                                                                if (i == (size - 1))
-
-                                                                                                            printf("\n");
-
-                                                                                                                    else
-
-                                                                                                                                printf(" ");
-
-                                                                                                                                    }
-
-                                                                            }
+#!/usr/bin/python3
+'''Contains a get_matrix_size and a matrix_mul function for a TDD project.
+'''
+
+
+def get_matrix_sizes(matrix_1, matrix_2, name_1, name_2):
+    '''Computes the size of a matrix and performs some
+    matrix validation.
+    Args:
+        matrix (list): The matrix.
+        name (str): The name of the matrix.
+    Returns:
+        list. The rows and columns of the given matrix.
+    '''
+    funcs = (
+        lambda txt: '{} must be a list'.format(txt),
+        lambda txt: '{} can\'t be empty'.format(txt),
+        lambda txt: '{} must be a list of lists'.format(txt),
+        lambda txt: '{} should contain only integers or floats'.format(txt),
+        lambda txt: 'each row of {} must be of the same size'.format(txt),
+        lambda l: all(map(lambda n: isinstance(n, (int, float)), l)),
+    )
+    size0 = [0, 0]
+    size1 = [0, 0]
+    if not isinstance(matrix_1, list):
+        raise TypeError(funcs[0](name_1))
+    if not isinstance(matrix_2, list):
+        raise TypeError(funcs[0](name_2))
+    size0[0] = len(matrix_1)
+    size1[0] = len(matrix_2)
+    if size0[0] == 0:
+        raise ValueError(funcs[1](name_1))
+    if size1[0] == 0:
+        raise ValueError(funcs[1](name_2))
+    if not all(map(lambda x: isinstance(x, list), matrix_1)):
+        raise TypeError(funcs[2](name_1))
+    if not all(map(lambda x: isinstance(x, list), matrix_2)):
+        raise TypeError(funcs[2](name_2))
+    if all(map(lambda x: len(x) == 0, matrix_1)):
+        raise ValueError(funcs[1](name_1))
+    if all(map(lambda x: len(x) == 0, matrix_2)):
+        raise ValueError(funcs[1](name_2))
+    if not all(map(lambda x: funcs[5](x), matrix_1)):
+        raise TypeError(funcs[3](name_1))
+    if not all(map(lambda x: funcs[5](x), matrix_2)):
+        raise TypeError(funcs[3](name_2))
+    size0[1] = len(matrix_1[0])
+    size1[1] = len(matrix_2[0])
+    if not all(map(lambda x: len(x) == size0[1], matrix_1)):
+        raise TypeError(funcs[4](name_1))
+    if not all(map(lambda x: len(x) == size1[1], matrix_2)):
+        raise TypeError(funcs[4](name_2))
+    return size0, size1
+
+
+def matrix_mul(m_a, m_b):
+    '''Multiplies 2 matrices.
+    Args:
+        m_a (list): The first matrix.
+        m_b (list): The second matrix.
+    Returns:
+        list: A list of lists of the products of the two given matrices.
+    Raises:
+        ValueError: If m_a's column count isn't equal to m_b's row count.
+    '''
+    a_sz, b_sz = get_matrix_sizes(m_a, m_b, 'm_a', 'm_b')
+    # AB only works iff column_count in A == row_count in B
+    if a_sz[1] != b_sz[0]:
+        raise ValueError('m_a and m_b can\'t be multiplied')
+    else:
+        res = []
+        for row_a in m_a:
+            row_res = []
+            for i in range(b_sz[1]):
+                cell_args = zip(range(a_sz[1]), row_a)
+                val = map(lambda x: x[1] * m_b[x[0]][i], cell_args)
+                row_res.append(sum(list(val)))
+            res.append(row_res)
+        return res
