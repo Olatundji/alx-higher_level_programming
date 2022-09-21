@@ -1,131 +1,29 @@
-nclude <Python.h>
-
-
-
-void print_python_list(PyObject *p);
-
-void print_python_bytes(PyObject *p);
-
-
-
-/**
-
- * print_python_list - Prints basic info about Python lists.
-
-  * @p: A PyObject list object.
-
-   */
-
-   void print_python_list(PyObject *p)
-
-   {
-
-            int size, alloc, i;
-
-                const char *type;
-
-                    PyListObject *list = (PyListObject *)p;
-
-                        PyVarObject *var = (PyVarObject *)p;
-
-
-
-                            size = var->ob_size;
-
-                                alloc = list->allocated;
-
-
-
-                                    printf("[*] Python list info\n");
-
-                                        printf("[*] Size of the Python List = %d\n", size);
-
-                                            printf("[*] Allocated = %d\n", alloc);
-
-
-
-                                                for (i = 0; i < size; i++)
-
-                                                    {
-
-                                                                type = list->ob_item[i]->ob_type->tp_name;
-
-                                                                        printf("Element %d: %s\n", i, type);
-
-                                                                                if (strcmp(type, "bytes") == 0)
-
-                                                                                            print_python_bytes(list->ob_item[i]);
-
-                                                                                                }
-
-                                                    }
-
-
-
-   /**
-
-    * print_python_bytes - Prints basic info about Python byte objects.
-
-     * @p: A PyObject byte object.
-
-      */
-
-      void print_python_bytes(PyObject *p)
-
-      {
-
-                unsigned char i, size;
-
-                    PyBytesObject *bytes = (PyBytesObject *)p;
-
-
-
-                        printf("[.] bytes object info\n");
-
-                            if (strcmp(p->ob_type->tp_name, "bytes") != 0)
-
-                                {
-
-                                            printf("  [ERROR] Invalid Bytes Object\n");
-
-                                                    return;
-
-                                                        }
-
-
-
-                                    printf("  size: %ld\n", ((PyVarObject *)p)->ob_size);
-
-                                        printf("  trying string: %s\n", bytes->ob_sval);
-
-
-
-                                            if (((PyVarObject *)p)->ob_size > 10)
-
-                                                    size = 10;
-
-                                                        else
-
-                                                                size = ((PyVarObject *)p)->ob_size + 1;
-
-
-
-                                                                    printf("  first %d bytes: ", size);
-
-                                                                        for (i = 0; i < size; i++)
-
-                                                                            {
-
-                                                                                        printf("%02hhx", bytes->ob_sval[i]);
-
-                                                                                                if (i == (size - 1))
-
-                                                                                                            printf("\n");
-
-                                                                                                                    else
-
-                                                                                                                                printf(" ");
-
-                                                                                                                                    }
-
-                                                                            }
+#!/usr/bin/python3
+# 5-text_indentation.py
+"""Defines a text-indentation function."""
+
+
+def text_indentation(text):
+    """Print text with two new lines after each '.', '?', and ':'.
+    Args:
+        text (string): The text to print.
+    Raises:
+        TypeError: If text is not a string.
+    """
+    if not isinstance(text, str):
+        raise TypeError("text must be a string")
+
+    c = 0
+    while c < len(text) and text[c] == ' ':
+        c += 1
+
+    while c < len(text):
+        print(text[c], end="")
+        if text[c] == "\n" or text[c] in ".?:":
+            if text[c] in ".?:":
+                print("\n")
+            c += 1
+            while c < len(text) and text[c] == ' ':
+                c += 1
+            continue
+        c += 1
