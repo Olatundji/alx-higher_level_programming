@@ -1,98 +1,17 @@
-st.txt
-
-
-
-=======================
-
-How to Use 1-my_list.py
-
-=======================
-
-
-
-This module defines a class ``MyList`` that inherits from ``list``.
-
-
-
-Instantiation
-
-=============
-
-
-
-``MyList`` can be instantiated with no arguments, which will return
-
-an empty list:
-
-
-
-    ::
-
-
-
-            >>> MyList = __import__('1-my_list').MyList
-
-                >>> my_list = MyList()
-
-                    >>> type(my_list)
-
-                        <class '1-my_list.MyList'>
-
-
-
-                        ::
-
-
-
-                                >>> print(my_list)
-
-                                    []
-
-
-
-                                    Or a single argument, which must be an iterable object.
-
-
-
-                                    ::
-
-
-
-                                            >>> my_list = MyList([1, 2, 3])
-
-                                                >>> print(my_list)
-
-                                                    [1, 2, 3]
-
-
-
-                                                    ::
-
-
-
-                                                            >>> my_list = MyList(None)
-
-                                                                Traceback (most recent call last):
-
-                                                                        TypeError: 'NoneType' object is not iterable
-
-
-
-
-
-                                                                        A ``TypeError`` will be raised for any more than one instantiation arguments.
-
-
-
-                                                                        ::
-
-
-
-                                                                                >>> my_list = MyList([1, 2], [3, 4])
-
-                                                                                    Traceback (most recent call last):
-
-                                                                                            TypeError: list() takes at most 1 argument (2 given)
-
-
-
+#!/usr/bin/python3
+# 2-is_same_class.py
+"""Defines a class-checking function."""
+
+
+def is_same_class(obj, a_class):
+    """Check if an object is exactly an instance of a given class.
+    Args:
+        obj (any): The object to check.
+        a_class (type): The class to match the type of obj to.
+    Returns:
+        If obj is exactly an instance of a_class - True.
+        Otherwise - False.
+    """
+    if type(obj) == a_class:
+        return True
+    return False
