@@ -1,61 +1,8 @@
-st.txt
+#!/usr/bin/python3
+# 0-lookup.py
+"""Defines an object attribute lookup function."""
 
 
-
-=======================
-
-How to Use 1-my_list.py
-
-=======================
-
-
-
-This module defines a class ``MyList`` that inherits from ``list``.
-
-
-
-Instantiation
-
-=============
-
-
-
-``MyList`` can be instantiated with no arguments, which will return
-
-an empty list:
-
-
-
-    ::
-
-
-
-            >>> MyList = __import__('1-my_list').MyList
-
-                >>> my_list = MyList()
-
-                    >>> type(my_list)
-
-                        <class '1-my_list.MyList'>
-
-
-
-                        ::
-
-
-
-                                >>> print(my_list)
-
-                                    []
-
-
-
-                                    Or a single argument, which must be an iterable object.
-
-
-
-                                    ::
-
-
-
-                                            >>> my_list = M
+def lookup(obj):
+    """Return a list of an object's available attributes."""
+    return (dir(obj))
