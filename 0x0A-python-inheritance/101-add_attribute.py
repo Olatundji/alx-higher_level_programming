@@ -1,148 +1,17 @@
-st.txt
-
-
-
-=======================
-
-How to Use 1-my_list.py
-
-=======================
-
-
-
-This module defines a class ``MyList`` that inherits from ``list``.
-
-
-
-Instantiation
-
-=============
-
-
-
-``MyList`` can be instantiated with no arguments, which will return
-
-an empty list:
-
-
-
-    ::
-
-
-
-            >>> MyList = __import__('1-my_list').MyList
-
-                >>> my_list = MyList()
-
-                    >>> type(my_list)
-
-                        <class '1-my_list.MyList'>
-
-
-
-                        ::
-
-
-
-                                >>> print(my_list)
-
-                                    []
-
-
-
-                                    Or a single argument, which must be an iterable object.
-
-
-
-                                    ::
-
-
-
-                                            >>> my_list = MyList([1, 2, 3])
-
-                                                >>> print(my_list)
-
-                                                    [1, 2, 3]
-
-
-
-                                                    ::
-
-
-
-                                                            >>> my_list = MyList(None)
-
-                                                                Traceback (most recent call last):
-
-                                                                        TypeError: 'NoneType' object is not iterable
-
-
-
-
-
-                                                                        A ``TypeError`` will be raised for any more than one instantiation arguments.
-
-
-
-                                                                        ::
-
-
-
-                                                                                >>> my_list = MyList([1, 2], [3, 4])
-
-                                                                                    Traceback (most recent call last):
-
-                                                                                            TypeError: list() takes at most 1 argument (2 given)
-
-
-
-                                                                                            Usage
-
-                                                                                            =====
-
-
-
-                                                                                            ``MyList`` is an inherited ``list`` class, and thus features the same methods.
-
-                                                                                            For instance, elements can be added to a ``MyList`` with the ``append()`` method.
-
-
-
-                                                                                            ::
-
-
-
-                                                                                                    >>> my_list = MyList()
-
-                                                                                                        >>> my_list.append(1)
-
-                                                                                                            >>> my_list.append(2)
-
-                                                                                                                >>> my_list.append(3)
-
-                                                                                                                    >>> print(my_list)
-
-                                                                                                                        [1, 2, 3]
-
-
-
-                                                                                                                        Replaced with indexing:
-
-
-
-                                                                                                                            ::
-
-
-
-                                                                                                                                    >>> my_list[0] = 5
-
-                                                                                                                                        >>> print(my_list)
-
-                                                                                                                                            [5, 2, 3]
-
-
-
-                                                                                                                                            And removed with the ``remove()`` method.
-
-
-
+#!/usr/bin/python3
+# 101-add_attribute.py
+"""Defines a function that adds attributes to objects."""
+
+
+def add_attribute(obj, att, value):
+    """Add a new attribute to an object if possible.
+    Args:
+        obj (any): The object to add an attribute to.
+        att (str): The name of the attribute to add to obj.
+        value (any): The value of att.
+    Raises:
+        TypeError: If the attribute cannot be added.
+    """
+    if not hasattr(obj, "__dict__"):
+        raise TypeError("can't add new attribute")
+    setattr(obj, att, value)
