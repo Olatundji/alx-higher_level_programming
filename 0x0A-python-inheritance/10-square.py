@@ -1,123 +1,17 @@
-st.txt
-
-
-
-=======================
-
-How to Use 1-my_list.py
-
-=======================
-
-
-
-This module defines a class ``MyList`` that inherits from ``list``.
-
-
-
-Instantiation
-
-=============
-
-
-
-``MyList`` can be instantiated with no arguments, which will return
-
-an empty list:
-
-
-
-    ::
-
-
-
-            >>> MyList = __import__('1-my_list').MyList
-
-                >>> my_list = MyList()
-
-                    >>> type(my_list)
-
-                        <class '1-my_list.MyList'>
-
-
-
-                        ::
-
-
-
-                                >>> print(my_list)
-
-                                    []
-
-
-
-                                    Or a single argument, which must be an iterable object.
-
-
-
-                                    ::
-
-
-
-                                            >>> my_list = MyList([1, 2, 3])
-
-                                                >>> print(my_list)
-
-                                                    [1, 2, 3]
-
-
-
-                                                    ::
-
-
-
-                                                            >>> my_list = MyList(None)
-
-                                                                Traceback (most recent call last):
-
-                                                                        TypeError: 'NoneType' object is not iterable
-
-
-
-
-
-                                                                        A ``TypeError`` will be raised for any more than one instantiation arguments.
-
-
-
-                                                                        ::
-
-
-
-                                                                                >>> my_list = MyList([1, 2], [3, 4])
-
-                                                                                    Traceback (most recent call last):
-
-                                                                                            TypeError: list() takes at most 1 argument (2 given)
-
-
-
-                                                                                            Usage
-
-                                                                                            =====
-
-
-
-                                                                                            ``MyList`` is an inherited ``list`` class, and thus features the same methods.
-
-                                                                                            For instance, elements can be added to a ``MyList`` with the ``append()`` method.
-
-
-
-                                                                                            ::
-
-
-
-                                                                                                    >>> my_list = MyList()
-
-                                                                                                        >>> my_list.append(1)
-
-                                                                                                            >>> my_list.append(2)
-
-                                                                                                                >>> my_list.append(3)
-
-
+#!/usr/bin/python3
+# 10-square.py
+"""Defines a Rectangle subclass Square."""
+Rectangle = __import__('9-rectangle').Rectangle
+
+
+class Square(Rectangle):
+    """Represent a square."""
+
+    def __init__(self, size):
+        """Initialize a new square.
+        Args:
+            size (int): The size of the new square.
+        """
+        self.integer_validator("size", size)
+        super().__init__(size, size)
+        self.__size =
