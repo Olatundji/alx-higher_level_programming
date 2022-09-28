@@ -1,141 +1,25 @@
-st.txt
-
-
-
-=======================
-
-How to Use 1-my_list.py
-
-=======================
-
-
-
-This module defines a class ``MyList`` that inherits from ``list``.
-
-
-
-Instantiation
-
-=============
-
-
-
-``MyList`` can be instantiated with no arguments, which will return
-
-an empty list:
-
-
-
-    ::
-
-
-
-            >>> MyList = __import__('1-my_list').MyList
-
-                >>> my_list = MyList()
-
-                    >>> type(my_list)
-
-                        <class '1-my_list.MyList'>
-
-
-
-                        ::
-
-
-
-                                >>> print(my_list)
-
-                                    []
-
-
-
-                                    Or a single argument, which must be an iterable object.
-
-
-
-                                    ::
-
-
-
-                                            >>> my_list = MyList([1, 2, 3])
-
-                                                >>> print(my_list)
-
-                                                    [1, 2, 3]
-
-
-
-                                                    ::
-
-
-
-                                                            >>> my_list = MyList(None)
-
-                                                                Traceback (most recent call last):
-
-                                                                        TypeError: 'NoneType' object is not iterable
-
-
-
-
-
-                                                                        A ``TypeError`` will be raised for any more than one instantiation arguments.
-
-
-
-                                                                        ::
-
-
-
-                                                                                >>> my_list = MyList([1, 2], [3, 4])
-
-                                                                                    Traceback (most recent call last):
-
-                                                                                            TypeError: list() takes at most 1 argument (2 given)
-
-
-
-                                                                                            Usage
-
-                                                                                            =====
-
-
-
-                                                                                            ``MyList`` is an inherited ``list`` class, and thus features the same methods.
-
-                                                                                            For instance, elements can be added to a ``MyList`` with the ``append()`` method.
-
-
-
-                                                                                            ::
-
-
-
-                                                                                                    >>> my_list = MyList()
-
-                                                                                                        >>> my_list.append(1)
-
-                                                                                                            >>> my_list.append(2)
-
-                                                                                                                >>> my_list.append(3)
-
-                                                                                                                    >>> print(my_list)
-
-                                                                                                                        [1, 2, 3]
-
-
-
-                                                                                                                        Replaced with indexing:
-
-
-
-                                                                                                                            ::
-
-
-
-                                                                                                                                    >>> my_list[0] = 5
-
-                                                                                                                                        >>> print(my_list)
-
-
+#!/usr/bin/python3
+# 7-base_geometry.py
+"""Defines a base geometry class BaseGeometry."""
+
+
+class BaseGeometry:
+    """Reprsent base geometry."""
+
+    def area(self):
+        """Not yet implemented."""
+        raise Exception("area() is not implemented")
+
+    def integer_validator(self, name, value):
+        """Validate a parameter as an integer.
+        Args:
+            name (str): The name of the parameter.
+            value (int): The parameter to validate.
+        Raises:
+            TypeError: If value is not an integer.
+            ValueError: If value is <= 0.
+        """
+        if type(value) != int:
+            raise TypeError("{} must be an integer".format(name))
+        if value <= 0:
+            raise ValueError("{} must be greater than 0".format(name))
