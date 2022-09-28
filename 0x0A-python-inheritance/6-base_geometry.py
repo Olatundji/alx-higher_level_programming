@@ -1,17 +1,11 @@
-st.txt
+#!/usr/bin/python3
+# 6-base_geometry.py
+"""Defines a base geometry class BaseGeometry."""
 
 
+class BaseGeometry:
+    """Represent base geometry."""
 
-=======================
-
-How to Use 1-my_list.py
-
-=======================
-
-
-
-This module defines a class ``MyList`` that inherits from ``list``.
-
-
-
-
+    def area(self):
+        """Not implemented."""
+        raise Exception("area() is not implemented")
