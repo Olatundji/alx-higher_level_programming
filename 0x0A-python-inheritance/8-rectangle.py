@@ -1,87 +1,19 @@
-st.txt
+#!/usr/bin/python3
+# 8-rectangle.py
+"""Defines a class Rectangle that inherits from BaseGeometry."""
+BaseGeometry = __import__('7-base_geometry').BaseGeometry
 
 
+class Rectangle(BaseGeometry):
+    """Represent a rectangle using BaseGeometry."""
 
-=======================
-
-How to Use 1-my_list.py
-
-=======================
-
-
-
-This module defines a class ``MyList`` that inherits from ``list``.
-
-
-
-Instantiation
-
-=============
-
-
-
-``MyList`` can be instantiated with no arguments, which will return
-
-an empty list:
-
-
-
-    ::
-
-
-
-            >>> MyList = __import__('1-my_list').MyList
-
-                >>> my_list = MyList()
-
-                    >>> type(my_list)
-
-                        <class '1-my_list.MyList'>
-
-
-
-                        ::
-
-
-
-                                >>> print(my_list)
-
-                                    []
-
-
-
-                                    Or a single argument, which must be an iterable object.
-
-
-
-                                    ::
-
-
-
-                                            >>> my_list = MyList([1, 2, 3])
-
-                                                >>> print(my_list)
-
-                                                    [1, 2, 3]
-
-
-
-                                                    ::
-
-
-
-                                                            >>> my_list = MyList(None)
-
-                                                                Traceback (most recent call last):
-
-                                                                        TypeError: 'NoneType' object is not iterable
-
-
-
-
-
-                                                                        A ``TypeError`` will be raised for any more than one instantiation arguments.
-
-
-
-                                                                        ::
+    def __init__(self, width, height):
+        """Intialize a new Rectangle.
+        Args:
+            width (int): The width of the new Rectangle.
+            height (int): The height of the new Rectangle.
+        """
+        self.integer_validator("width", width)
+        self.__width = width
+        self.integer_validator("height", height)
+        self.__height = height 
