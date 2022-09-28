@@ -1,67 +1,15 @@
-st.txt
+#!/usr/bin/python3
+# 100-my_int.py
+"""Defines a class MyInt that inherits from int."""
 
 
+class MyInt(int):
+    """Invert int operators == and !=."""
 
-=======================
+    def __eq__(self, value):
+        """Override == opeartor with != behavior."""
+        return self.real != value
 
-How to Use 1-my_list.py
-
-=======================
-
-
-
-This module defines a class ``MyList`` that inherits from ``list``.
-
-
-
-Instantiation
-
-=============
-
-
-
-``MyList`` can be instantiated with no arguments, which will return
-
-an empty list:
-
-
-
-    ::
-
-
-
-            >>> MyList = __import__('1-my_list').MyList
-
-                >>> my_list = MyList()
-
-                    >>> type(my_list)
-
-                        <class '1-my_list.MyList'>
-
-
-
-                        ::
-
-
-
-                                >>> print(my_list)
-
-                                    []
-
-
-
-                                    Or a single argument, which must be an iterable object.
-
-
-
-                                    ::
-
-
-
-                                            >>> my_list = MyList([1, 2, 3])
-
-                                                >>> print(my_list)
-
-                                                    [1, 2, 3]
-
-
+    def __ne__(self, value):
+        """Override != operator with == behavior."""
+        return self.real == value
