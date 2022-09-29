@@ -1,13 +1,14 @@
-d_file.py
-
-"""Defines a text file-reading function."""
-
-
-
+#!/usr/bin/python3
+'''A module containing IO functions.
+'''
+from json import JSONEncoder
 
 
-def read_file(filename=""):
-
-        """Print the contents of a UTF8 text file to stdout."""
-
-            with open(filename, encoding="utf-8") a
+def save_to_json_file(my_obj, filename):
+    '''Saves the JSON representation of an object to a file.
+    Args:
+        my_obj (any): An object to convert to JSON.
+        filename (str): The file to save the JSON string in.
+    '''
+    with open(filename, mode='w', encoding='utf-8') as file:
+        file.write(JSONEncoder().encode(my_obj))
